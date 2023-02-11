@@ -20,17 +20,18 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.post('/', async (req, res) => {
+    const { message } = req.body;
     const response = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: "Say this is a test",
-        maxTokens: 7,
+        prompt: `${message}`,
+        max_tokens: 10,
         temperature: 0
     });
 
-    console.log(response);
-    res.json({
-        message: 'Hello World'
-    });
+    console.log(response.data);
+    if(response.data.choices[0].text){
+        res.json({ message: response.data.choices[0].text });
+    }
 });
 
 app.listen(port, () => {
