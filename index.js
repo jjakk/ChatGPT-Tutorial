@@ -23,12 +23,15 @@ app.post('/', async (req, res) => {
     const { message } = req.body;
     const response = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: `${message}`,
-        max_tokens: 10,
+        prompt: `
+            You are a console terminal, answer as if you are receiving commands from a user.
+            > ${message}
+            # 
+        `,
+        max_tokens: 100,
         temperature: 0
     });
 
-    console.log(response.data);
     if(response.data.choices[0].text){
         res.json({ message: response.data.choices[0].text });
     }

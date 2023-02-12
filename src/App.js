@@ -22,16 +22,18 @@ function App() {
 
     return (
         <div className="App">
+            <h1>Steve Jobs ChatApp</h1>
             <form onSubmit={handleSubmit}>
                 <textarea
                     id="message"
                     value={message}
+                    placeholder="Ask steve anything"
                     onChange={e => setMessage(e.target.value)}
                 />
                 <button type="submit">Submit</button>
             </form>
             <div className="response">
-                {response}
+                {response && <div><b>Steve:</b> {response}</div>}
             </div>
         </div>
     );
